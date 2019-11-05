@@ -14,6 +14,7 @@
     <p v-else>All Todos Done</p>
     <hr />
     <form v-on:submit.prevent="addTodo">
+      <div class="error" v-if="errorMessage">{{ errorMessage }}</div>
       <input type="text" v-model="newTodo" placeholder="Add New Todo Task" />
       <button type="submit">Add Todo</button>
     </form>
@@ -26,6 +27,7 @@ import Todo from "../TodoManager/Todo";
 export default {
   name: "todo-manager",
   data: () => ({
+    errorMessage: "",
     newTodo: "",
     todos: [
       {
@@ -54,12 +56,18 @@ export default {
   },
   methods: {
     addTodo: function() {
-      this.todos.push({
-        id: this.nextId,
-        isComplete: false,
-        task: this.newTodo
-      });
-      this.newTodo = "";
+      if (!this.newTodo) {
+        this.errorMessage = "Please enter a todo task.";
+        return;
+      } else {
+        this.errorMessage = "";
+        this.todos.push({
+          id: this.nextId,
+          isComplete: false,
+          task: this.newTodo
+        });
+        this.newTodo = "";
+      }
     },
     completeTodo: function(id) {
       this.todos.find(t => t.id === id).isComplete = true;
@@ -72,6 +80,10 @@ export default {
 </script>
 
 <style scoped>
+.error {
+  padding: 5px 0;
+  color: red;
+}
 .manager {
   padding: 20px;
   padding-top: 0;

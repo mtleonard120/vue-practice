@@ -1,5 +1,6 @@
 <template>
   <div class="manager">
+    <h2>Todo Manager App</h2>
     <div v-if="todos.length">
       <Todo
         v-for="todo in todos"
@@ -71,12 +72,9 @@ export default {
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
-
 .manager {
-  margin: 20px auto;
-  max-width: 1000px;
+  padding: 20px;
+  padding-top: 0;
+  border: 1px solid black;
 }
 </style>

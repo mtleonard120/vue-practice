@@ -1,5 +1,7 @@
 <template>
-  <TodoManager />
+  <div id="app">
+    <TodoManager />
+  </div>
 </template>
 
 <script>

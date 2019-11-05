@@ -1,13 +1,11 @@
 <template>
   <div class="manager">
-    <h2>Todo Manager App</h2>
+    <h2>Todo Manager</h2>
     <div v-if="todos.length">
       <Todo
         v-for="todo in todos"
+        v-bind.sync="todo"
         :key="todo.id"
-        :isComplete="todo.isComplete"
-        :task="todo.task"
-        :complete="() => completeTodo(todo.id)"
         :remove="() => removeTodo(todo.id)"
       />
     </div>
@@ -68,9 +66,6 @@ export default {
         });
         this.newTodo = "";
       }
-    },
-    completeTodo: function(id) {
-      this.todos.find(t => t.id === id).isComplete = true;
     },
     removeTodo: function(id) {
       this.todos = this.todos.filter(t => t.id !== id);

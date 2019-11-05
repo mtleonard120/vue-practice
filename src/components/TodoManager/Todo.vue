@@ -13,9 +13,13 @@ export default {
   name: "Todo",
   props: {
     isComplete: Boolean,
-    complete: Function,
     remove: Function,
     task: String
+  },
+  methods: {
+    complete: function() {
+      this.$emit("update:isComplete", true);
+    }
   }
 };
 </script>

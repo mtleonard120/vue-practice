@@ -1,8 +1,6 @@
 <template>
   <div class="todo-line">
-    <div :class="[isComplete ? 'complete' : '', 'red']" class="todo">
-      {{ task }}
-    </div>
+    <div :class="[isComplete ? 'complete' : '']" class="todo">{{ task }}</div>
     <div class="buttons">
       <button @click="complete">Complete</button>
       <button @click="remove">Remove</button>

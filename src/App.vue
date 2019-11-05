@@ -14,7 +14,7 @@
     <hr />
     <form v-on:submit.prevent="addTodo">
       <input type="text" v-model="newTodo" placeholder="Add New Todo Task" />
-      <button class="red" type="submit">Add Todo</button>
+      <button type="submit">Add Todo</button>
     </form>
   </div>
 </template>
@@ -73,10 +73,6 @@ export default {
 <style scoped>
 * {
   box-sizing: border-box;
-}
-
-.red {
-  color: red;
 }
 
 #app {

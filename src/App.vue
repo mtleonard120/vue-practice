@@ -1,20 +1,21 @@
 <template>
   <div id="app">
-    <div class="container">
-      <div class="todo-list">
-        <Todo
-          v-for="todo in todos"
-          :key="todo.id"
-          :task="todo.task"
-          :remove="() => removeTodo(todo.id)"
-          :id="todo.id"
-        />
-      </div>
-      <form v-on:submit.prevent="addTodo">
-        <input type="text" v-model="newTodo" placeholder="Add New Todo Task" />
-        <button type="submit">Add Todo</button>
-      </form>
+    <div v-if="todos.length">
+      <Todo
+        v-for="todo in todos"
+        :key="todo.id"
+        :isComplete="todo.isComplete"
+        :task="todo.task"
+        :complete="() => completeTodo(todo.id)"
+        :remove="() => removeTodo(todo.id)"
+      />
     </div>
+    <p v-else>All Todos Done</p>
+    <hr />
+    <form v-on:submit.prevent="addTodo">
+      <input type="text" v-model="newTodo" placeholder="Add New Todo Task" />
+      <button class="red" type="submit">Add Todo</button>
+    </form>
   </div>
 </template>
 
@@ -28,10 +29,12 @@ export default {
     todos: [
       {
         id: 1,
+        isComplete: false,
         task: "Eat"
       },
       {
         id: 2,
+        isComplete: false,
         task: "Poop"
       }
     ]
@@ -50,7 +53,15 @@ export default {
   },
   methods: {
     addTodo: function() {
-      this.todos.push({ id: this.nextId, task: this.newTodo });
+      this.todos.push({
+        id: this.nextId,
+        isComplete: false,
+        task: this.newTodo
+      });
+      this.newTodo = "";
+    },
+    completeTodo: function(id) {
+      this.todos.find(t => t.id === id).isComplete = true;
     },
     removeTodo: function(id) {
       this.todos = this.todos.filter(t => t.id !== id);
@@ -64,16 +75,12 @@ export default {
   box-sizing: border-box;
 }
 
+.red {
+  color: red;
+}
+
 #app {
   margin: 20px auto;
   max-width: 1000px;
-}
-
-.container {
-  display: flex;
-}
-
-.todo-list {
-  width: 200px;
 }
 </style>

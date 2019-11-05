@@ -1,7 +1,12 @@
 <template>
   <div class="todo-line">
-    <div class="todo">{{ task }}</div>
-    <button @click="remove">Remove</button>
+    <div :class="[isComplete ? 'complete' : '', 'red']" class="todo">
+      {{ task }}
+    </div>
+    <div class="buttons">
+      <button @click="complete">Complete</button>
+      <button @click="remove">Remove</button>
+    </div>
   </div>
 </template>
 
@@ -9,7 +14,8 @@
 export default {
   name: "Todo",
   props: {
-    id: Number,
+    isComplete: Boolean,
+    complete: Function,
     remove: Function,
     task: String
   }
@@ -17,9 +23,16 @@ export default {
 </script>
 
 <style scoped>
+.buttons {
+  display: flex;
+}
+
+.complete {
+  text-decoration: line-through;
+}
+
 .todo-line {
-  width: 100%;
-  padding: 0 20px;
+  width: 300px;
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
